@@ -2,6 +2,7 @@ import { readFileSync } from 'fs';
 import { CeramicClient } from '@ceramicnetwork/http-client'
 import {
   createComposite,
+  mergeEncodedComposites,
   readEncodedComposite,
   writeEncodedComposite,
   writeEncodedCompositeRuntime,
@@ -21,8 +22,17 @@ const ceramic = new CeramicClient("http://localhost:7007");
 export const writeComposite = async (spinner) => {
   await authenticate()
   spinner.info("writing composite to Ceramic")
-  const composite = await createComposite(ceramic, './composites/basicProfile.graphql')
-  await writeEncodedComposite(composite, "./src/__generated__/definition.json");
+  const compositeProfile = await createComposite(ceramic, './composites/basicProfile.graphql')
+  await writeEncodedComposite(compositeProfile, "./src/__generated__/definition_profile.json");
+  const compositeWidget = await createComposite(ceramic, './composites/widget.graphql')
+  await writeEncodedComposite(compositeWidget, "./src/__generated__/definition_widget.json");
+  await mergeEncodedComposites(ceramic, [
+    "./src/__generated__/definition_profile.json",
+    "./src/__generated__/definition_widget.json",
+    ],
+    "./src/__generated__/definition.json"
+  )
+
   spinner.info('creating composite for runtime usage')
   await writeEncodedCompositeRuntime(
     ceramic,
@@ -33,6 +43,7 @@ export const writeComposite = async (spinner) => {
   const deployComposite = await readEncodedComposite(ceramic, './src/__generated__/definition.json')
 
   await deployComposite.startIndexingOn(ceramic)
+  console.log(deployComposite.modelIDs);
   spinner.succeed("composite deployed & ready for use");
 }
 

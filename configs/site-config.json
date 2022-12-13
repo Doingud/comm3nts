@@ -1,0 +1,49 @@
+{
+  "copyright": "Copyright © {{date}} Comm3nts. All Rights Reserved.",
+  "author": {
+    "name": "skylar745",
+    "github": "https://github.com/skylar745"
+  },
+  "repo": {
+    "url": "https://github.com/DoinGud/comm3nts"
+  },
+  "openCollective": {
+    "url": "https://opencollective.com/comm3nts"
+  },
+  "discord": {
+    "url": "https://discord.gg/comm3nts"
+  },
+  "seo": {
+    "title": "Comm3nts",
+    "titleTemplate": "%s - Comm3nts",
+    "description": "Web3 enabled comments accross the web",
+    "siteUrl": "https://comm3nts.xyz",
+    "twitter": {
+      "handle": "@comm3nts",
+      "site": "@comm3nts",
+      "cardType": "summary_large_image"
+    },
+    "openGraph": {
+      "type": "website",
+      "locale": "en_US",
+      "url": "https://comm3nts.xyz",
+      "title": "Comm3nts",
+      "description": "Web3 enabled comments accross the web",
+      "site_name": "Comm3nts: Web3 enabled comments accross the web",
+      "images": [
+        {
+          "url": "https://comm3nts.xyz/og-image.png",
+          "width": 1240,
+          "height": 480,
+          "alt": "Comm3nts: Web3 enabled comments accross the web"
+        },
+        {
+          "url": "https://comm3nts.xyz/twitter-og-image.png",
+          "width": 1012,
+          "height": 506,
+          "alt": "Comm3nts: Web3 enabled comments accross the web"
+        }
+      ]
+    }
+  }
+}
