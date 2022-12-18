@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Card, CardBody, CardFooter, CardHeader, Collapse, Flex, Heading, IconButton, Text } from "@chakra-ui/react";
 import { useState } from "react";
-import { ChevronDownIcon, ChatIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon, ChatIcon, TriangleUpIcon, TriangleDownIcon } from '@chakra-ui/icons'
 import { useEffect } from "react";
 import { useCeramicContext } from "context";
 import { formatDistance, } from 'date-fns'
@@ -36,10 +36,10 @@ function CommentContent({
         <Heading as='h5' size='sm'>
           {post.content.title}
         </Heading>
-      
+
       </CardHeader>
       <CardBody>
-        {post.content.body.length > 200 && 
+        {post.content.body.length > 200 &&
           <Collapse startingHeight={40} in={show} >
             <Text fontSize='sm'>{post.content.body}</Text>
           </Collapse>
@@ -53,7 +53,7 @@ function CommentContent({
         <Flex>
           {formatDistance(new Date(post.timestamp * 1000), new Date(), { addSuffix: true })}
         </Flex>
-        {post.content.body.length > 200 && 
+        {post.content.body.length > 200 &&
           <Flex flex='1' justifyContent='flex-end' mr='1.1rem'>
             <Button size='sm' onClick={handleToggle}>
               Show {show ? 'Less' : 'More'}
@@ -65,21 +65,81 @@ function CommentContent({
   );
 }
 
+function Reactions({ reactions }: any) {
+  return (
+    <>
+      <Text as='b' mr={'.5rem'} lineHeight={'10px'}>
+        {reactions?.like}
+      </Text>
+      <Text as='b' mr={'.5rem'} lineHeight={'10px'}>
+        Like
+      </Text>
+      {/* <TriangleUpIcon /> */}
+      <Text as='b' mr={'.5rem'} lineHeight={'10px'}>
+        {reactions?.haha}
+      </Text>
+      <Text as='b' mr={'.5rem'} lineHeight={'10px'}>
+        Haha
+      </Text>
+
+      <Text as='b' mr={'.5rem'} lineHeight={'10px'}>
+        {reactions?.downvote}
+      </Text>
+      <Text as='b' mr={'.5rem'} lineHeight={'10px'}>
+        Downvote
+      </Text>
+      {/* <TriangleDownIcon /> */}
+    </>
+  )
+}
+
 function Replies({
   replies
 }: {
   replies: any;
 }) {
+  // const { state: { orbis } } = useCeramicContext()
   return (
     replies?.map((post: any) => {
+
+      // return fetchReactions(orbis, post.stream_id).then(reactions => {
+      //   const totalReactions = calcReactions(reactions);
+      //   console.log("reply reacts: ", totalReactions);
+      //   return (
+      //     <Card left={'var(--chakra-space-8)'} w={'calc(100% - var(--chakra-space-8))'} key={post.stream_id} size='sm'>
+      //       <CommentContent post={post} />
+      //       <Flex>
+      //         <Reactions reactions={totalReactions} />
+      //       </Flex>
+      //     </Card>
+      //   )
+      // })
+
       return (
         <Card left={'var(--chakra-space-8)'} w={'calc(100% - var(--chakra-space-8))'} key={post.stream_id} size='sm'>
           <CommentContent post={post} />
         </Card>
-
       )
     })
   );
+}
+
+const calcReactions = (reactions: any) => {
+  let totalReactions = {
+    like: 0,
+    haha: 0,
+    downvote: 0
+  }
+  reactions?.map((reaction: any) => {
+    if (reaction.type == "like") {
+      totalReactions.like++;
+    } else if (reaction.type == "downvote") {
+      totalReactions.downvote++;
+    } else {
+      totalReactions.haha++;
+    }
+  })
+  return totalReactions;
 }
 
 function Comment({
@@ -89,9 +149,9 @@ function Comment({
 }) {
   const { state: { orbis } } = useCeramicContext()
   const [replies, setReplies] = useState<any>()
-  
+  const [reactions, setReactions] = useState<any>()
+
   const fetchReplies = async (master: string) => {
-    
     const { data: replies, error } = await orbis.getPosts({
       master,
     });
@@ -100,19 +160,26 @@ function Comment({
   }
 
   useEffect(() => {
-    if (post) {
-      fetchReplies(post.stream_id)
-      fetchReactions(orbis, post.stream_id)
-    }
+    async function fetch() {
+      if (post) {
+        fetchReplies(post.stream_id)
+        const reactions = await fetchReactions(orbis, post.stream_id)
+        console.log("Reactions: ", reactions);
+        const totalReactions = calcReactions(reactions);
+        setReactions(totalReactions)
+      }
+    };
+    fetch();
   }, [post])
 
   return (
     <>
       <Card size='sm' marginY='1rem'>
-        <CommentContent 
+        <CommentContent
           post={post}
           footer={
             <Flex flex='1'>
+              <Reactions reactions={reactions} />
               <Text as='b' mr={'.5rem'} lineHeight={'10px'}>
                 {replies?.length}
               </Text>
