@@ -1,0 +1,21 @@
+enum ChannelType {
+  PUBLIC,
+  ENCRYPTED,
+}
+# Comm3nt Widget Channel datamodel
+type Comm3ntChannel {
+  name: String! @string(maxLength: 264)
+  type: ChannelType
+  contextId: String! @string(maxLength: 264)
+  ref: String @string(maxLength: 264)
+}
+# Comm3nt Widget datamodel
+type Comm3ntWidget @createModel(accountRelation: LIST, description: "Comm3nt Widget settings") {
+  author: DID! @documentAccount
+  name: String! @string(maxLength: 264)
+  channels: [Comm3ntChannel] @list(maxLength: 10)
+  ref: String @string(maxLength: 264)
+  reverse: Boolean
+  # apiMode: !Boolean
+  # customSyles: String
+}

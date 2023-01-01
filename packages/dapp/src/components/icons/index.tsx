@@ -1,0 +1,6 @@
+export { GithubIcon } from './github'
+export { DiscordIcon } from './discord'
+export { DownvoteIcon } from './downvotes'
+export { UpvoteIcon } from './upvotes'
+export { LikeIcon } from './likes'
+export { ReplyIcon } from './replies'
