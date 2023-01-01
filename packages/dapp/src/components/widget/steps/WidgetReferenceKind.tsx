@@ -1,8 +1,7 @@
-import { Box, Button, Center, FormControl, FormErrorMessage, FormHelperText, Heading, HStack, Input, StackDivider, useRadio, useRadioGroup, VStack, Wrap, WrapItem } from '@chakra-ui/react';
-import FormikStepper from '../../Stepper';
-import { Field, FieldProps, Form, Formik, useFormikContext } from 'formik';
+import { Box, Button, Center, FormControl, FormErrorMessage, FormHelperText, Heading, StackDivider, useRadio, useRadioGroup, VStack, Wrap, WrapItem } from '@chakra-ui/react';
+import { Field, FieldProps, useFormikContext } from 'formik';
 
-function RadioCard(props) {
+function RadioCard(props: any) {
   const { getInputProps, getCheckboxProps } = useRadio(props)
 
   const input = getInputProps()
@@ -35,7 +34,7 @@ function RadioCard(props) {
 }
 
 function WidgetReferenceKind (props: any) {
-  const formik = useFormikContext();
+  const formik = useFormikContext<any>();
   const { values, submitForm } = formik;
   const options = ['url', 'nft', 'token', 'address', 'transaction', 'block'];
 

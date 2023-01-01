@@ -16,7 +16,7 @@ function Preview ({
   widget?: IWidget;
 }) {
   const defaultSize = {
-    w: '100%',
+    w: 1200,
     h: 800,
   }
   const [ size , setSize ] = useState<SizeType>(defaultSize);
@@ -49,7 +49,10 @@ function Preview ({
           marginY="4"
           variant='outline-gradiant'
         >
-          <iframe ref={ref} style={{background: 'transparent'}} width={'100%'} height={'100%'} src={`https://comm3nts.xyz/embed/${widgetId}`}></iframe>
+          <iframe ref={ref} style={{background: 'transparent'}} width={'100%'} height={'100%'} src={
+            // `http://localhost:3000/embed/${widgetId}`
+            `https://comm3nts.xyz/embed/${widgetId}`
+            }></iframe>
         </Container>
       </Container>
     </>

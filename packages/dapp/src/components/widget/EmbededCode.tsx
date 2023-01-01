@@ -18,6 +18,7 @@ const EmbededCode = ({
   type: 'widget' | 'link'
 }) => {
   const ref = useRef<HTMLTextAreaElement>(null);
+  // const host = 'http://localhost:3000';
   const host = 'https://comm3nts.xyz';
 
   const bg = useColorModeValue('white', 'gray.700')

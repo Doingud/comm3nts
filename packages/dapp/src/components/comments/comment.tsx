@@ -9,7 +9,10 @@ import useCredentials from "../../hooks/useCredentials";
 import { shortRef } from "../../utils/reference";
 import { LikeIcon, ReplyIcon, DownvoteIcon, UpvoteIcon } from '../icons'
 
-function Reactions({ post, toggleReplies }) {
+function Reactions({ post, toggleReplies }: {
+  post: any;
+  toggleReplies: Function;
+}) {
   // console.log('reactions', Object.keys(post));
   const accepts = [
     'likes',
@@ -229,7 +232,7 @@ function Comment({
           }
         />
       </Card>
-      <Collapse direction='top' in={repliesOpen} style={{ zIndex: 10 }}>
+      <Collapse in={repliesOpen} style={{ zIndex: 10 }}>
         <Replies replies={replies} />
       </Collapse>
     </>

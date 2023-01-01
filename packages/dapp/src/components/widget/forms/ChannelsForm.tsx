@@ -1,7 +1,7 @@
 import { Container, Card, CardHeader, Flex, Stack, Heading, Tag, Button, Collapse, CardBody, FormControl, FormLabel, Input, FormHelperText, FormErrorMessage, Select, Box } from "@chakra-ui/react";
 import { Field, FieldArray, FieldProps, useFormikContext } from "formik";
 import { useState } from "react";
-import { IChannel } from "../../../utils/comm3nt";
+import { IChannel, IWidget } from "../../../utils/comm3nt";
 
 function validateName(value: string) {
   let error
@@ -98,8 +98,7 @@ const ChannelForm = ({
 }
 
 function ChannelsForm (props: any) {
-  const { values, submitForm, isSubmitting} = useFormikContext();
-  console.log('channel form', values)
+  const { values, submitForm, isSubmitting} = useFormikContext<IWidget>();
   return (
     <>
     {/* <Card variant='outline' p='6' py='0' my='12'> */}

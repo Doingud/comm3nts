@@ -5,14 +5,14 @@ import parseReference, { getNftCollection, getNft } from '../../../utils/referen
 import { supportedChains } from '../../../utils/web3api';
 
 function NFTForm () {
-  const { values, touched, setFieldValue } = useFormikContext();
+  const { values, touched, setFieldValue } = useFormikContext<any>();
   const { ref } = values;
   // useEffect(() => {
 
   // }, values);
   useEffect(() => {
     async function fetchMetadata (chainId: string, address: string, tokenId: string) {
-
+      
       if (tokenId) {
         const nft = await getNft(
           parseReference(chainId).ref,
@@ -21,7 +21,7 @@ function NFTForm () {
         );
 
         if (nft) {
-          setFieldValue('context', `${chainId}/${nft?.result?.contract_type?.toLowerCase()}:${address}/${tokenId}`);
+          setFieldValue('contextId', `${chainId}/${nft?.result?.contract_type?.toLowerCase()}:${address}/${tokenId}`);
         }
         return;
       }
@@ -30,16 +30,17 @@ function NFTForm () {
         {reference: address, namespace: 'null'}
       );
       if (collection?.result?.length > 0) {
-        setFieldValue('context', `${chainId}/${collection.result[0]?.contract_type?.toLowerCase()}:${address}`);
+        setFieldValue('contextId', `${chainId}/${collection.result[0]?.contract_type?.toLowerCase()}:${address}`);
       }
     }
     // set the value of textC, based on textA and textB
+
     if (
       ref &&
       ref?.chainId &&
-      ref?.address
+      ref?.assetReference
     ) {
-      fetchMetadata( ref.chainId,  ref.address, ref.tokenId || null);
+      fetchMetadata( ref.chainId,  ref.assetReference, ref.tokenId || null);
     }
   }, [ref, setFieldValue]);
 

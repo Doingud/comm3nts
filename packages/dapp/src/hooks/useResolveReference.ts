@@ -6,7 +6,7 @@ const fetcher = async (context: string) => {
   
 }
 
-function useResolveReference (reference) {
+function useResolveReference (reference: any) {
   const { data, error, isLoading } = useSWR(reference.contextId || reference.ref || reference.context,
     fetcher,
     // {

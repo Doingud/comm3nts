@@ -21,9 +21,9 @@ function ReferencesRanked () {
             Hot topics from {format(new Date(date), 'PP')}
           </Heading>
           <Divider mt="2"/>
-          {refMap[date].map(reference => (
+          {refMap[date].map((reference: any) => (
             <ReferenceCard 
-              key={`${date}-${reference.context}`}
+              key={`${date}-${reference.ref || reference.contextId}`}
               reference={reference} 
               />
           ))}

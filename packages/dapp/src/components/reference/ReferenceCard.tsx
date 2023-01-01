@@ -1,11 +1,12 @@
 import { Box, Button, Card, CardBody, CardFooter, Flex, Heading, HStack, Image, LinkBox, LinkOverlay, Stack, Tag, Text } from "@chakra-ui/react";
 import NextLink from 'next/link'
-import { ChatIcon, TriangleUpIcon } from '@chakra-ui/icons'
+import { TriangleUpIcon } from '@chakra-ui/icons'
 import useResolveReference from "../../hooks/useResolveReference";
 import makeBlockie from 'ethereum-blockies-base64';
 
 function ReferenceCard ({reference, variant}: any) {
   const { metadata } = useResolveReference(reference);
+  console.log('render reference card', reference, metadata)
   return (
     <LinkBox>
     <Card
@@ -42,13 +43,13 @@ function ReferenceCard ({reference, variant}: any) {
         alignSelf="center"
         objectFit='cover'
         maxW={{ base: '100%', sm: '200px' }}
-        src={metadata?.pfp || makeBlockie(reference?.context || reference?.ref || 'anon')}
-        alt={metadata?.description || metadata?.name || reference?.context}
+        src={metadata?.pfp || makeBlockie(reference?.context ||reference?.contextId || reference?.ref || 'anon')}
+        alt={metadata?.description || metadata?.name || reference?.contextId || reference?.context}
       />
       <Stack justifySelf="flex-start" flex='1'>
         <CardBody textAlign='left' pb="2">
           <HStack>
-            <Heading size='sm' maxInlineSize="lg">{metadata?.name || reference.context}</Heading>
+            <Heading size='sm' maxInlineSize="lg">{metadata?.name || reference.contextId || reference?.context}</Heading>
             {metadata?.kind && 
               <Tag
                 background='linear-gradient(134.64deg, #DEF0FA 0%, #7ADEFF 38.02%, #4188F7 63.54%, #8343F6 89.06%)'
@@ -67,7 +68,7 @@ function ReferenceCard ({reference, variant}: any) {
           </Text>
           <LinkOverlay
             as={NextLink}
-            href={`/context/${encodeURIComponent(reference?.context || reference?.ref)}`}
+            href={`/context/${encodeURIComponent(reference?.context || reference?.contextId || reference?.ref)}`}
             passHref
           >
             view

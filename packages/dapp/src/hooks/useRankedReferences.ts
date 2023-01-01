@@ -2,8 +2,10 @@ import useSWR from 'swr'
 import api from '../utils/comm3nts-api';
 
 const fetcher = async (func: string) => {
-  const { data, error } = await api.rpc(func).select('*').filter('context', 'not.eq', null);
-  const refMap = data?.reduce((rv, x) => {
+  const { data, error } = await api.rpc(func)
+    .filter('context', 'not.eq', null)
+  ;
+  const refMap = data?.reduce((rv: any, x: any) => {
     (rv[x['date']] = rv[x['date']] || []).push(x);
     return rv;
   }, {})

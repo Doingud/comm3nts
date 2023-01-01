@@ -12,7 +12,7 @@ function Comm3ntBox ({widget, channel}: {
   channel:any;
 }) {
 
-  const ref = useRef<HTMLElement>()
+  // const ref = useRef<HTMLElement>(null)
   const profile = {
     username: undefined,
     pfp: undefined,
@@ -24,7 +24,7 @@ function Comm3ntBox ({widget, channel}: {
 
 
 
-  async function submitPost(values) {
+  async function submitPost(values: any) {
     // await postComm3nt(orbis, channel, widget, values);
     mutate(key => {
       return Array.isArray(key) && key[0] === '/posts' && key[1] === channel.contextId
@@ -41,7 +41,7 @@ function Comm3ntBox ({widget, channel}: {
       top='10'
       zIndex='3'
       bg='white'
-      ref={ref}
+      // ref={ref}
       py='4'
       px='0'
       position='sticky'

@@ -203,13 +203,21 @@ export function parseReference(contextId: string): IReference | string | undefin
   return res
 }
 
-export function flatten(value: any) {
+export type FlatRef = {
+  chainNamespace?: string,
+  chainReference?: string,
+  assetReference?: string,
+  assetNamespace?: string,
+  address?: string,
+  tokenId?: string,
+}
+export function flatten(value: any): FlatRef {
   return {
     chainNamespace: value?.chainId?.namespace || value?.namespace,
     chainReference: value?.chainId?.reference || value?.reference,
     assetReference: value?.assetName?.reference,
     assetNamespace: value?.assetName?.namespace,
-    address: value?.address ,
+    address: value?.address,
     tokenId: value?.tokenId
   }
 }
@@ -425,8 +433,8 @@ export async function getStreamData(streamId: StreamID) {
     if(metadata.tags && metadata.tags?.indexOf('orbis') > -1) {
       if (metadata.tags?.indexOf('group') > -1) {
         const { data, error } =  await orbis.getGroup(streamId);
-        data.kind = 'group';
         if (error) return false;
+        data.kind = 'group';
         return {
           kind: 'group',
           pfp: data.content?.pfp,

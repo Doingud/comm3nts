@@ -7,17 +7,24 @@ import ReferenceKind from "./steps/ReferenceKind";
 import Submit from "./steps/Submit";
 import { createWidget, IChannelType } from "../../utils/comm3nt";
 import { useCeramicContext } from "../../../context";
+import { useRouter } from "next/router";
 
 function WidgetCreateStepper () {
   const { state: { composeClient } } = useCeramicContext()
-  function save (values) {
-    return createWidget(composeClient, {
+  const { push } = useRouter()
+
+  async function save (values: any) {
+    // console.log('saving widget', values)
+    const res = await createWidget(composeClient, {
       name: values.name,
-      ref: values.context,
+      ref: values.contextId,
       reverse: values.reverse,
       channels: [],
     });
+    // console.log('widget created', res);
+    push(`/widgets/${res?.id}`)
   }
+
   return (
     <FormikStepper 
       initialValues={{
@@ -25,6 +32,7 @@ function WidgetCreateStepper () {
         reverse: false,
         kind: 'nft',
         ref: {},
+        channels: [],
       }}
       onSubmit={(values, actions) => {
         save(values).then(() => actions.setSubmitting(false));

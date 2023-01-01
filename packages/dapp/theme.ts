@@ -127,5 +127,5 @@ const theme = extendTheme({
     body: inter.style.fontFamily,
   },
 });
-console.log(theme);
+
 export default theme;

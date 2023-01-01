@@ -235,16 +235,16 @@ const WidgetConfiguration = ({
 
   }, [])
 
-  function saveSettings(values) {
+  function saveSettings(values: any) {
 
     return updateWidget(composeClient, {
       ...values,
-      ref: values?.context,
+      ref: values?.contextId,
     });
     return values;
   }
   
-  function saveChannels(values) {
+  function saveChannels(values: any) {
 
     return updateWidget(composeClient, values);
     // return values;

@@ -6,7 +6,7 @@ import parseReference, { resolveReference } from "../../utils/reference";
 function WidgetBox (widget: IWidget) {
 
   useEffect(() => {
-    resolveReference(parseReference(widget.reference))
+    resolveReference(parseReference(widget.ref as string))
   }, []);
   return (
     <>

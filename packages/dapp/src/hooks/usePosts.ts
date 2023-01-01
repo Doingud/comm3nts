@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 import { orbis } from '../../context'
-import { fetchPostsWithContext, getWidget, IChannel } from '../utils/comm3nt'
+import { fetchPostsWithContext, IChannel } from '../utils/comm3nt'
 import useMap from './useMap';
 import { useEffect, useState } from 'react';
 
@@ -33,7 +33,7 @@ function usePosts (channel: IChannel, partialContext?: string) {
   useEffect(() => {
     if(data) {
       setHasNext(data?.length === 50);
-      actions.setAll([...Array.from(posts.entries()), ...data.map(post => [post.stream_id, post])].sort((a, b) => b[1].timestamp - a[1].timestamp))
+      actions.setAll([...Array.from(posts.entries()), ...data.map((post: any) => [post.stream_id, post])].sort((a, b) => b[1].timestamp - a[1].timestamp))
     }
   }, [data])
 

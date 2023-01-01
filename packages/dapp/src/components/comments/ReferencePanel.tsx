@@ -38,7 +38,7 @@ function ReferenceCard ({reference, ...props}: any) {
             // maxW='max-content'
             // maxW={{ base: "100%", sm: "200px" }}
             maxH={{ base: "800px"}}
-            src={metadata?.pfp || makeBlockie(reference?.context || reference?.ref || 'anon')}
+            src={metadata?.pfp || makeBlockie(reference?.contextId || reference?.ref || 'anon')}
             alt="Caffe Latte"
           />
           <Box

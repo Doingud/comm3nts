@@ -4,7 +4,7 @@ import { useFormikContext } from "formik";
 import useResolveReference from "../../../hooks/useResolveReference";
 import { useEffect } from "react";
 
-function Submit (props) {
+function Submit (props: any) {
   const { values, submitForm } = useFormikContext();
 
   return (
