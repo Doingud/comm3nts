@@ -6,7 +6,7 @@ import makeBlockie from 'ethereum-blockies-base64';
 
 function ReferenceCard ({reference, variant}: any) {
   const { metadata } = useResolveReference(reference);
-  console.log('render reference card', reference, metadata)
+
   return (
     <LinkBox>
     <Card

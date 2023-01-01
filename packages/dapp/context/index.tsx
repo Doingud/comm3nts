@@ -6,7 +6,6 @@ import { Orbis } from "@orbisclub/orbis-sdk";
 import { definition } from "../src/__generated__/definition.js";
 import { RuntimeCompositeDefinition } from "@composedb/types";
 import { DID } from "dids";
-import { boolean } from "yup";
 
 type State = {
   ceramic: CeramicClient;
@@ -24,10 +23,10 @@ type Action =
 /**
  * Configure ceramic Client & create context.
  */
-export const ceramic = new CeramicClient("http://localhost:7007");
+export const ceramic = new CeramicClient(process.env.NEXT_PUBLIC_CERAMIC || "https://composedb.doingud.work");
 
 export const composeClient = new ComposeClient({
-  ceramic: "http://localhost:7007",
+  ceramic: process.env.NEXT_PUBLIC_CERAMIC || "https://composedb.doingud.work",
   // cast our definition as a RuntimeCompositeDefinition
   definition: definition as RuntimeCompositeDefinition,
 });

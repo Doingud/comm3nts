@@ -51,7 +51,7 @@ function Preview ({
         >
           <iframe ref={ref} style={{background: 'transparent'}} width={'100%'} height={'100%'} src={
             // `http://localhost:3000/embed/${widgetId}`
-            `https://comm3nts.xyz/embed/${widgetId}`
+            `${process.env.NEXT_PUBLIC_HOST || 'https://comm3nts.xyz'}/embed/${widgetId}`
             }></iframe>
         </Container>
       </Container>
