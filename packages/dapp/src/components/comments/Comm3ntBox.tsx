@@ -6,6 +6,7 @@ import { shortRef } from "../../utils/reference";
 import useResolveReference from "../../hooks/useResolveReference";
 import { useCeramicContext } from "../../../context";
 import { useSWRConfig } from "swr";
+import { postComm3nt } from "../../utils/comm3nt";
 
 function Comm3ntBox ({widget, channel}: {
   widget: any;
@@ -25,7 +26,7 @@ function Comm3ntBox ({widget, channel}: {
 
 
   async function submitPost(values: any) {
-    // await postComm3nt(orbis, channel, widget, values);
+    await postComm3nt(orbis, channel, widget, values);
     mutate(key => {
       return Array.isArray(key) && key[0] === '/posts' && key[1] === channel.contextId
     })
